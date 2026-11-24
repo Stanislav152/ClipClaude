@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <ApplicationIcon>Resources\app.ico</ApplicationIcon>
+    <AssemblyName>ClipClaude</AssemblyName>
+    <RootNamespace>ClipClaude</RootNamespace>
+    <Version>1.0.0</Version>
+    <Product>ClipClaude</Product>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\app.ico" LogicalName="ClipClaude.app.ico" />
+    <EmbeddedResource Include="Resources\busy.ico" LogicalName="ClipClaude.busy.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="ClipClaude.Tests" />
+  </ItemGroup>
+
+</Project>
