@@ -141,7 +141,11 @@ internal sealed class TrayApp : ApplicationContext
 
     private async Task ExecuteAsync(ClaudeAction action, string text)
     {
-        if (_running is not null) return;
+        if (_running is not null)
+        {
+            Notify("Запрос уже выполняется — дождитесь результата.", ToolTipIcon.Info);
+            return;
+        }
         _running = new CancellationTokenSource();
         SetBusy(action);
         Log.Info($"Request {action}, length={text.Length}");

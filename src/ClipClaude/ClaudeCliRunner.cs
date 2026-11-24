@@ -25,7 +25,7 @@ public static class ClaudeCliRunner
     private static readonly UTF8Encoding Utf8NoBom = new(encoderShouldEmitUTF8Identifier: false);
 
     private static readonly Regex AuthErrorPattern = new(
-        @"not logged in|please run /login|run /login|/login|invalid api key|authentication_error|oauth token|unauthorized|401",
+        @"not logged in|run /login|invalid api key|authentication_error|oauth token|\bunauthorized\b",
         RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
 
     private static readonly Regex SafeArg = new(@"^[A-Za-z0-9._:\[\]\-=/]+$", RegexOptions.CultureInvariant);

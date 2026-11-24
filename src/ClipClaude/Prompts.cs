@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace ClipClaude;
 
 public enum ClaudeAction
@@ -50,6 +52,18 @@ public static class Prompts
         if (!template.Contains(Placeholder, StringComparison.Ordinal))
             template = template.TrimEnd() + "\n<text>\n" + Placeholder + "\n</text>";
 
-        return template.Replace("\r\n", "\n").Replace(Placeholder, text, StringComparison.Ordinal);
+        return template.Replace("\r\n", "\n").Replace(Placeholder, EscapeText(text), StringComparison.Ordinal);
     }
+
+    private static readonly Regex ClosingTag = new(@"</(?=\s*text\s*>)", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+    private static readonly Regex EscapedClosingTag = new(@"<\\/(?=\s*text\s*>)", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+
+    /// <summary>
+    /// «&lt;/text&gt;» внутри пользовательского текста превращается в «&lt;\/text&gt;»,
+    /// чтобы текст не мог закрыть обрамляющий тег и выйти за его пределы.
+    /// </summary>
+    public static string EscapeText(string text) => ClosingTag.Replace(text, @"<\/");
+
+    /// <summary>Обратное преобразование для ответа модели.</summary>
+    public static string UnescapeText(string text) => EscapedClosingTag.Replace(text, "</");
 }

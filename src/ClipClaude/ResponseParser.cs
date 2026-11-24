@@ -10,6 +10,6 @@ public static class ResponseParser
             s = s["<text>".Length..].TrimStart();
         if (s.EndsWith("</text>", StringComparison.OrdinalIgnoreCase))
             s = s[..^"</text>".Length].TrimEnd();
-        return s;
+        return Prompts.UnescapeText(s);
     }
 }
